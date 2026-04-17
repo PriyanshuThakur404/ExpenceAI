@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ExpenceAI/static/css/main.e302597b.css",
+    "main.js": "/ExpenceAI/static/js/main.a321d8c2.js",
+    "index.html": "/ExpenceAI/index.html",
+    "main.e302597b.css.map": "/ExpenceAI/static/css/main.e302597b.css.map",
+    "main.a321d8c2.js.map": "/ExpenceAI/static/js/main.a321d8c2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e302597b.css",
+    "static/js/main.a321d8c2.js"
+  ]
+}
