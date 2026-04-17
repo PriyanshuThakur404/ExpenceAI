@@ -2,15 +2,15 @@
   "name": "expenseai-client",
   "version": "1.0.0",
   "description": "ExpenseAI Frontend - Smart Expense Tracker with AI Insights",
-  "homepage": "https://yourusername.github.io/ExpenseAI",
+  "homepage": "https://PriyanshuThakur404.github.io/ExpenceAI",
   "private": true,
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.0",
     "axios": "^1.4.0",
     "chart.js": "^3.9.1",
-    "react-chartjs-2": "^4.3.1"
+    "react": "^18.2.0",
+    "react-chartjs-2": "^4.3.1",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "react-scripts": "5.0.1"
   }
 }
