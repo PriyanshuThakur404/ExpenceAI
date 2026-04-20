@@ -35,6 +35,11 @@ ExpenseAI is built with:
 - Predict next month's expenses
 - Personalized saving suggestions
 
+### 📄 Export Features
+- Export financial reports to PDF
+- Comprehensive analytics summary
+- Category breakdown and insights
+
 ## 📁 Project Structure
 
 ```
@@ -140,7 +145,26 @@ npm start
 
 The application will open at `http://localhost:3000`
 
-## 🔌 API Endpoints
+## � Live Deployment
+
+### **ExpenseAI is Live and Production Ready!**
+
+Access your deployed application: **https://PriyanshuThakur404.github.io/ExpenceAI**
+
+| Component | Service | URL | Status |
+|-----------|---------|-----|--------|
+| **Frontend** | GitHub Pages | https://PriyanshuThakur404.github.io/ExpenceAI | ✅ Live |
+| **Backend API** | Render | https://expenceai.onrender.com | ✅ Live |
+| **Database** | MongoDB Atlas | Cloud Hosted | ✅ Connected |
+| **Repository** | GitHub | https://github.com/PriyanshuThakur404/ExpenceAI | ✅ Public |
+
+### **Quick Start**
+1. Open: https://PriyanshuThakur404.github.io/ExpenceAI
+2. Click **"Sign Up"** to create your account
+3. Start tracking expenses and see real-time analytics
+4. Get AI-powered insights and budget recommendations
+
+## �🔌 API Endpoints
 
 ### Authentication Routes
 - `POST /api/auth/signup` - Register a new user
@@ -232,7 +256,6 @@ Shows how much they've exceeded the budget
 - Mobile app (React Native)
 - Bank account synchronization
 - Multi-language support
-- Export reports (PDF/CSV)
 - Budget reminders and notifications
 - Recurring expense templates
 - Social sharing features
@@ -242,21 +265,23 @@ Shows how much they've exceeded the budget
 - **Team Name:** ExpenseAI
 - **Members:** Priyanshu Thakur (24BCC70018), Sashi Yadav (24BIT70010)
 - **Project Year:** 2nd Year
+- **Live Website:** https://PriyanshuThakur404.github.io/ExpenceAI
 
 ## 📝 Resume Description
 
-Developed a full-stack AI-powered Smart Expense Tracker using React.js, Node.js, Express.js, and MongoDB with interactive dashboards, predictive analytics, and personalized budget insights. Implemented JWT-based authentication, responsive UI design, and real-time expense categorization with AI-driven savings recommendations.
+Developed a full-stack AI-powered Smart Expense Tracker using React.js, Node.js, Express.js, and MongoDB Atlas. Features include JWT-based authentication with Bcrypt password hashing, real-time expense tracking with CRUD operations, interactive analytics dashboards with Chart.js visualizations, AI-powered spending predictions, and personalized budget insights. Successfully deployed frontend on GitHub Pages, backend on Render, and database on MongoDB Atlas for production-ready cloud infrastructure. Implemented responsive UI design, AI-driven savings recommendations, and overspending alert system with CORS-enabled REST API.
 
-## 🛠️ Technology Stack
+## 🛠️ Technology Stack - Production Ready
 
 | Category | Technology |
 |----------|-----------|
 | Frontend | React.js, React Router, Axios |
-| Backend | Node.js, Express.js |
-| Database | MongoDB, Mongoose |
+| Backend | Node.js, Express.js, Mongoose |
+| Database | MongoDB Atlas (Cloud Hosted) |
 | Authentication | JWT, Bcryptjs |
 | Visualization | Chart.js, react-chartjs-2 |
-| Styling | CSS3 |
+| Styling | CSS3 (Responsive Design) |
+| Deployment | GitHub Pages, Render, MongoDB Atlas |
 
 ## 📄 License
 
@@ -264,8 +289,22 @@ This project is provided for educational purposes.
 
 ## 🤝 Support
 
-For issues or questions, please contact the development team.
+For issues or questions about the deployment or features, please visit the GitHub repository.
 
 ---
 
-**ExpenseAI** - Smart Finance Decisions Made Easy! 💡
+## ✨ Deployment Success Status
+
+✅ **Frontend:** Deployed on GitHub Pages  
+✅ **Backend:** Deployed on Render  
+✅ **Database:** MongoDB Atlas Cloud Connection  
+✅ **Authentication:** JWT + Bcrypt Secure  
+✅ **AI Analytics:** Fully Functional  
+✅ **Responsive Design:** Mobile & Desktop Ready  
+✅ **CORS:** Configured for Production  
+
+---
+
+**ExpenseAI** - Live Smart Finance Assistant! 🚀💡
+
+Visit: https://PriyanshuThakur404.github.io/ExpenceAI

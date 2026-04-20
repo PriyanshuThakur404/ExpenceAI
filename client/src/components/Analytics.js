@@ -4,6 +4,7 @@ import { ExpenseContext } from '../context/ExpenseContext';
 import { AuthContext } from '../context/AuthContext';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+import jsPDF from 'jspdf';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
@@ -26,6 +27,63 @@ const Analytics = () => {
     await updateBudget(budgetInput);
     setBudgetChanged(false);
     await fetchAnalytics();
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPosition = 20;
+
+    // Title
+    doc.setFontSize(20);
+    doc.text('ExpenseAI - Financial Report', pageWidth / 2, yPosition, { align: 'center' });
+    yPosition += 20;
+
+    // Date
+    doc.setFontSize(12);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, yPosition);
+    yPosition += 15;
+
+    // Summary Data
+    doc.setFontSize(14);
+    doc.text('Financial Summary:', 20, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(12);
+    doc.text(`Total Expenses: Rs. ${analytics.totalExpenses.toFixed(2)}`, 20, yPosition);
+    yPosition += 8;
+    doc.text(`Monthly Total: Rs. ${analytics.monthlyTotal.toFixed(2)}`, 20, yPosition);
+    yPosition += 8;
+    doc.text(`Budget: Rs. ${budgetInput}`, 20, yPosition);
+    yPosition += 8;
+    doc.text(`Average Daily Expense: Rs. ${analytics.averageDailyExpense.toFixed(2)}`, 20, yPosition);
+    yPosition += 8;
+    doc.text(`Predicted Monthly: Rs. ${analytics.predictedMonthlyExpense}`, 20, yPosition);
+    yPosition += 8;
+    doc.text(`Highest Spending Category: ${analytics.highestSpendingCategory}`, 20, yPosition);
+    yPosition += 15;
+
+    // AI Insights
+    doc.setFontSize(14);
+    doc.text('AI Insights:', 20, yPosition);
+    yPosition += 10;
+    doc.setFontSize(12);
+    const insightLines = doc.splitTextToSize(analytics.savingsSuggestion, pageWidth - 40);
+    doc.text(insightLines, 20, yPosition);
+    yPosition += insightLines.length * 5 + 10;
+
+    // Category Breakdown
+    doc.setFontSize(14);
+    doc.text('Spending by Category:', 20, yPosition);
+    yPosition += 10;
+    doc.setFontSize(12);
+    Object.entries(analytics.categoryBreakdown).forEach(([category, amount]) => {
+      doc.text(`${category}: Rs. ${amount.toFixed(2)}`, 20, yPosition);
+      yPosition += 8;
+    });
+
+    // Save the PDF
+    doc.save('ExpenseAI_Report.pdf');
   };
 
   if (loading || !analytics) {
@@ -130,6 +188,12 @@ const Analytics = () => {
         <div className="insight-box">
           <p>{analytics.savingsSuggestion}</p>
         </div>
+      </div>
+
+      <div className="export-section">
+        <button onClick={exportToPDF} className="export-pdf-btn">
+          📄 Export PDF Report
+        </button>
       </div>
 
       <div className="charts-container">

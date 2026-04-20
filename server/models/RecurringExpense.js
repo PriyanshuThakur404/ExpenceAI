@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const expenseSchema = new mongoose.Schema(
+const recurringExpenseSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,17 +22,30 @@ const expenseSchema = new mongoose.Schema(
       required: [true, 'Please select a category'],
       trim: true,
     },
-    date: {
+    frequency: {
+      type: String,
+      enum: ['daily', 'weekly', 'monthly', 'yearly'],
+      required: [true, 'Please select a frequency'],
+    },
+    startDate: {
       type: Date,
-      required: [true, 'Please provide a date'],
+      required: [true, 'Please provide a start date'],
+    },
+    endDate: {
+      type: Date,
+      default: null, // null means indefinite
+    },
+    lastGenerated: {
+      type: Date,
+      default: null,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
     },
     notes: {
       type: String,
       trim: true,
-    },
-    receipt: {
-      type: String, // URL to the uploaded receipt image
-      default: null,
     },
     createdAt: {
       type: Date,
@@ -42,4 +55,4 @@ const expenseSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Expense', expenseSchema);
+module.exports = mongoose.model('RecurringExpense', recurringExpenseSchema);

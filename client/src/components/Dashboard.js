@@ -5,16 +5,23 @@ import { ExpenseContext } from '../context/ExpenseContext';
 import ExpenseForm from './ExpenseForm';
 import ExpenseList from './ExpenseList';
 import Analytics from './Analytics';
+import CategoryManager from './CategoryManager';
+import RecurringExpenseManager from './RecurringExpenseManager';
+import SavingsGoalsManager from './SavingsGoalsManager';
+import ThemeToggle from './ThemeToggle';
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
-  const { fetchExpenses, fetchAnalytics } = useContext(ExpenseContext);
+  const { fetchExpenses, fetchCategories, fetchRecurringExpenses, fetchSavingsGoals, fetchAnalytics } = useContext(ExpenseContext);
   const [activeTab, setActiveTab] = useState('expenses');
 
   useEffect(() => {
     fetchExpenses();
+    fetchCategories();
+    fetchRecurringExpenses();
+    fetchSavingsGoals();
     fetchAnalytics();
-  }, [fetchExpenses, fetchAnalytics]);
+  }, [fetchExpenses, fetchCategories, fetchRecurringExpenses, fetchSavingsGoals, fetchAnalytics]);
 
   return (
     <div className="dashboard">
@@ -24,6 +31,7 @@ const Dashboard = () => {
         </div>
         <div className="navbar-menu">
           <p>Welcome, {user?.name}!</p>
+          <ThemeToggle />
           <button onClick={logout} className="logout-btn">
             Logout
           </button>
@@ -37,6 +45,24 @@ const Dashboard = () => {
             onClick={() => setActiveTab('expenses')}
           >
             Expenses
+          </button>
+          <button
+            className={`tab ${activeTab === 'recurring' ? 'active' : ''}`}
+            onClick={() => setActiveTab('recurring')}
+          >
+            Recurring
+          </button>
+          <button
+            className={`tab ${activeTab === 'goals' ? 'active' : ''}`}
+            onClick={() => setActiveTab('goals')}
+          >
+            Goals
+          </button>
+          <button
+            className={`tab ${activeTab === 'categories' ? 'active' : ''}`}
+            onClick={() => setActiveTab('categories')}
+          >
+            Categories
           </button>
           <button
             className={`tab ${activeTab === 'analytics' ? 'active' : ''}`}
@@ -53,6 +79,12 @@ const Dashboard = () => {
               <ExpenseList />
             </div>
           )}
+
+          {activeTab === 'recurring' && <RecurringExpenseManager />}
+
+          {activeTab === 'goals' && <SavingsGoalsManager />}
+
+          {activeTab === 'categories' && <CategoryManager />}
 
           {activeTab === 'analytics' && <Analytics />}
         </div>

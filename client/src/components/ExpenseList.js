@@ -17,10 +17,50 @@ const ExpenseList = () => {
     setEditingId(null);
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this expense?')) {
-      await deleteExpense(id);
-    }
+  const exportToCSV = () => {
+    const headers = ['Date', 'Description', 'Category', 'Amount', 'Notes'];
+    const csvData = expenses.map(expense => [
+      new Date(expense.date).toLocaleDateString(),
+      expense.description,
+      expense.category,
+      expense.amount.toFixed(2),
+      expense.notes || ''
+    ]);
+
+    const csvContent = [headers, ...csvData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `expenses_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const exportToJSON = () => {
+    const jsonData = expenses.map(expense => ({
+      date: new Date(expense.date).toLocaleDateString(),
+      description: expense.description,
+      category: expense.category,
+      amount: expense.amount,
+      notes: expense.notes || ''
+    }));
+
+    const jsonContent = JSON.stringify(jsonData, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `expenses_${new Date().toISOString().split('T')[0]}.json`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (loading) {
@@ -33,7 +73,17 @@ const ExpenseList = () => {
 
   return (
     <div className="expense-list-container">
-      <h2>Your Expenses</h2>
+      <div className="list-header">
+        <h2>Your Expenses</h2>
+        <div className="export-buttons">
+          <button onClick={exportToCSV} className="export-btn csv-btn">
+            📊 Export CSV
+          </button>
+          <button onClick={exportToJSON} className="export-btn json-btn">
+            📄 Export JSON
+          </button>
+        </div>
+      </div>
       <table className="expense-table">
         <thead>
           <tr>
@@ -119,7 +169,7 @@ const ExpenseList = () => {
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => handleDelete(expense._id)}
+                      onClick={() => deleteExpense(expense._id)}
                     >
                       Delete
                     </button>

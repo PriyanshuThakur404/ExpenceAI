@@ -1,18 +1,57 @@
 import '../styles/ExpenseForm.css';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ExpenseContext } from '../context/ExpenseContext';
 
 const ExpenseForm = () => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('Food');
+  const [category, setCategory] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [notes, setNotes] = useState('');
+  const [receipt, setReceipt] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { addExpense } = useContext(ExpenseContext);
+  const { addExpense, categories, fetchCategories } = useContext(ExpenseContext);
 
-  const categories = ['Food', 'Travel', 'Bills', 'Shopping', 'Health', 'Entertainment', 'Others'];
+  useEffect(() => {
+    if (categories.length === 0) {
+      fetchCategories();
+    }
+  }, [categories.length, fetchCategories]);
+
+  useEffect(() => {
+    // Set default category when categories are loaded
+    if (categories.length > 0 && !category) {
+      setCategory(categories[0].name);
+    }
+  }, [categories, category]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file');
+        return;
+      }
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('File size must be less than 5MB');
+        return;
+      }
+      setReceipt(file);
+      setError('');
+    }
+  };
+
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,20 +59,30 @@ const ExpenseForm = () => {
     setLoading(true);
 
     try {
+      let receiptData = null;
+      if (receipt) {
+        receiptData = await convertFileToBase64(receipt);
+      }
+
       await addExpense({
         description,
         amount: parseFloat(amount),
         category,
         date,
         notes,
+        receipt: receiptData,
       });
 
       // Reset form
       setDescription('');
       setAmount('');
-      setCategory('Food');
+      setCategory(categories.length > 0 ? categories[0].name : 'Food');
       setDate(new Date().toISOString().split('T')[0]);
       setNotes('');
+      setReceipt(null);
+      // Reset file input
+      const fileInput = document.getElementById('receipt');
+      if (fileInput) fileInput.value = '';
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add expense');
     } finally {
@@ -81,8 +130,8 @@ const ExpenseForm = () => {
               onChange={(e) => setCategory(e.target.value)}
             >
               {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
+                <option key={cat._id || cat.name} value={cat.name}>
+                  {cat.icon} {cat.name}
                 </option>
               ))}
             </select>
@@ -109,7 +158,25 @@ const ExpenseForm = () => {
             rows="3"
           ></textarea>
         </div>
-
+        <div className="form-group">
+          <label htmlFor="receipt">Receipt Image (Optional)</label>
+          <input
+            type="file"
+            id="receipt"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          {receipt && (
+            <div className="file-preview">
+              <p>Selected: {receipt.name}</p>
+              <img
+                src={URL.createObjectURL(receipt)}
+                alt="Receipt preview"
+                style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
+              />
+            </div>
+          )}
+        </div>
         <button type="submit" disabled={loading} className="submit-btn">
           {loading ? 'Adding...' : 'Add Expense'}
         </button>
