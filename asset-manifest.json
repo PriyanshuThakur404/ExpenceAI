@@ -1,13 +1,19 @@
 {
   "files": {
-    "main.css": "/ExpenceAI/static/css/main.e302597b.css",
-    "main.js": "/ExpenceAI/static/js/main.4d6746f0.js",
+    "main.css": "/ExpenceAI/static/css/main.6c46bef1.css",
+    "main.js": "/ExpenceAI/static/js/main.7a406b3f.js",
+    "static/js/239.cc3a2fdd.chunk.js": "/ExpenceAI/static/js/239.cc3a2fdd.chunk.js",
+    "static/js/977.a949da8a.chunk.js": "/ExpenceAI/static/js/977.a949da8a.chunk.js",
+    "static/js/732.c211fc19.chunk.js": "/ExpenceAI/static/js/732.c211fc19.chunk.js",
     "index.html": "/ExpenceAI/index.html",
-    "main.e302597b.css.map": "/ExpenceAI/static/css/main.e302597b.css.map",
-    "main.4d6746f0.js.map": "/ExpenceAI/static/js/main.4d6746f0.js.map"
+    "main.6c46bef1.css.map": "/ExpenceAI/static/css/main.6c46bef1.css.map",
+    "main.7a406b3f.js.map": "/ExpenceAI/static/js/main.7a406b3f.js.map",
+    "239.cc3a2fdd.chunk.js.map": "/ExpenceAI/static/js/239.cc3a2fdd.chunk.js.map",
+    "977.a949da8a.chunk.js.map": "/ExpenceAI/static/js/977.a949da8a.chunk.js.map",
+    "732.c211fc19.chunk.js.map": "/ExpenceAI/static/js/732.c211fc19.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e302597b.css",
-    "static/js/main.4d6746f0.js"
+    "static/css/main.6c46bef1.css",
+    "static/js/main.7a406b3f.js"
   ]
 }
